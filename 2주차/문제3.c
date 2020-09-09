@@ -32,50 +32,50 @@ int main(void) {
     }
 
 /* A : 난수 데이터 정렬 */
-    printf("\n** A\n");
+    printf("A\n");
     QueryPerformanceCounter(&start);
     /*선택*/ selection(A, n);
     QueryPerformanceCounter(&end);
     diff.QuadPart = end.QuadPart - start.QuadPart;
-    printf("%.5f ms\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart)*1000);
+    printf("선택정렬 : %0.fms\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart)*1000);
     
     QueryPerformanceCounter(&start);
     /*삽입*/ insertion(B, n);
     QueryPerformanceCounter(&end);
     diff.QuadPart = end.QuadPart - start.QuadPart;
-    printf("%.5f ms\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart)*1000);
+    printf("삽입정렬 : %0.fms\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart)*1000);
     
 /* B : 이미 정렬된 데이터를 정렬*/
-    printf("\n** B\n");
+    printf("B\n");
     QueryPerformanceCounter(&start);
     /*선택*/ selection(A, n);
     QueryPerformanceCounter(&end);
     diff.QuadPart = end.QuadPart - start.QuadPart;
-    printf("%.5f ms\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart) * 1000);
+    printf("선택정렬 : %0.fs\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart) * 1000);
 
     QueryPerformanceCounter(&start);
     /*삽입*/ insertion(B, n);
     QueryPerformanceCounter(&end);
     diff.QuadPart = end.QuadPart - start.QuadPart;
-    printf("%.5f ms\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart) * 1000);
+    printf("삽입정렬 : %0.fms\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart) * 1000);
 
 
 /* C : 역순으로 정렬된 데이터를 정렬 */
     reverse(A, n);
     reverse(B, n);
 
-    printf("\n** C\n");
+    printf("C\n");
     QueryPerformanceCounter(&start);
     /*선택*/ selection(A, n);
     QueryPerformanceCounter(&end);
     diff.QuadPart = end.QuadPart - start.QuadPart;
-    printf("%.5f ms\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart) * 1000);
+    printf("선택정렬 : %0.fms\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart) * 1000);
 
     QueryPerformanceCounter(&start);
     /*삽입*/ insertion(B, n);
     QueryPerformanceCounter(&end);
     diff.QuadPart = end.QuadPart - start.QuadPart;
-    printf("%.5f ms\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart) * 1000);
+    printf("삽입정렬 : %0.fms\n", ((double)diff.QuadPart / (double)ticksPerSec.QuadPart) * 1000);
 
     return 0;
 }
