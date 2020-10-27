@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -41,13 +42,9 @@ void expandExternal(Node* z)
     Node* l = getnode();
     Node* r = getnode();
 
-    l->left = NULL;
-    l->right = NULL;
     l->parent = z;
     l->c = 1;
 
-    r->left = NULL;
-    r->right = NULL;
     r->parent = z;
     r->c = 2;
 
@@ -57,8 +54,10 @@ void expandExternal(Node* z)
     return;
 }
 
-Node* advanceLast(Node* v)
+Node* advanceLast(Node* last)
 {
+    Node* v = last;
+
     while (v->c == 2) // 현재 노드가 오른쪽 자식인 동안
         v = v->parent; // 부모 노드로 이동
 
@@ -81,25 +80,28 @@ Node* retreatLast(Node* v)
 
     while (v->left != NULL && v->right != NULL) // 현재 노드가 내부 노드인 동안
         v = v->right; // 오른쪽 자식으로 이동
-
+    
     return v;
 }
 
-void insertItem(int k, Node* v)
+Node* insertItem(int k, Node* last)
 {
-    Node* z = getnode();
-    z = advanceLast(v);
+    Node* z, * L;
+
+    L = advanceLast(last);
+    z = L;
     z->key = k;
     expandExternal(z);
     upHeap(z);
-    return;
+
+    return L;
 }
 
 void print_Tree(Node* tree)
 {
     if (tree->left != NULL && tree->right != NULL) {
-        print_Tree(tree->left);
         printf(" %d", tree->key);
+        print_Tree(tree->left);
         print_Tree(tree->right);
     }
 }
@@ -109,6 +111,7 @@ int main()
     int i, n, k;
 
     Node* tree = getnode();
+    Node* last = tree;
     tree->parent = NULL;
     tree->c = 0;
 
@@ -117,7 +120,8 @@ int main()
     for (i = 0; i < n; i++)
     {
         scanf("%d", &k);
-        insertItem(k, tree);
+
+        last = insertItem(k, last);
     }
 
     print_Tree(tree);
