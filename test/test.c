@@ -37,6 +37,7 @@ int removeE(Node* L, int k, int e)
 {
     int n = 0;
     Node* p = L;
+    Node* del;
 
     for (int i = 0; i < k; i++) {
         p = p->next;
@@ -45,8 +46,10 @@ int removeE(Node* L, int k, int e)
     do {
         n++;
         if (p->knext->e == e) {
+            del = p->knext;
             p->knext = p->knext->knext;
 
+            free(del);
             return n;
         }
         p = p->knext;
